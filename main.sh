@@ -32,6 +32,11 @@ receipt_handle=$(echo $var8 | tr -d '""')
 
 aws sqs delete-message --queue-url https://sqs.ap-south-1.amazonaws.com/968225076544/video-streaming --receipt-handle $receipt_handle
 
+aws autoscaling execute-policy --auto-scaling-group-name video-conversion-w-git --policy-name  reduce-an-instance
+
 var7=$(ec2metadata --instance-id)
 
 aws ec2 terminate-instances --instance-ids $var7
+
+
+ 
