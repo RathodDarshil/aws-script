@@ -22,9 +22,9 @@ var6=$(echo $var4-720.mp4)
 
 aws s3 cp $var3 $var4
 
-ffmpeg -i $var4 -filter:v "scale=w=1920:h=-1" -b:v 8M $var5
+ffmpeg -i $var4 -filter:v "scale=w=1920:h=-1" -b:v 6M $var5
 
-ffmpeg -i $var4 -filter:v "scale=w=1280:h=-1" -b:v 5M $var6
+ffmpeg -i $var4 -filter:v "scale=w=1280:h=-1" -b:v 3M $var6
 
 aws s3 cp $var5 s3://video-streaming-output-bucket
 
