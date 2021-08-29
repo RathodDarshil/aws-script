@@ -2,6 +2,8 @@
 
 var7=$(ec2metadata --instance-id)
 
+aws autoscaling set-instance-protection --instance-ids $var7 --auto-scaling-group-name video-conversion-w-git --protected-from-scale-in
+
 main_obj=$(aws sqs receive-message --queue-url https://sqs.ap-south-1.amazonaws.com/968225076544/video-streaming --attribute-names All --message-attribute-names All --max-number-of-messages 1)
 
 echo -e $main_obj > version.json
@@ -34,8 +36,7 @@ receipt_handle=$(echo $var8 | tr -d '""')
 
 aws sqs delete-message --queue-url https://sqs.ap-south-1.amazonaws.com/968225076544/video-streaming --receipt-handle $receipt_handle
 
-aws autoscaling execute-policy --auto-scaling-group-name video-conversion-w-git --policy-name  reduce-an-instance
-
+aws autoscaling set-instance-protection --instance-ids $var7 --auto-scaling-group-name video-conversion-w-git --no-protected-from-scale-in
 
 
 
