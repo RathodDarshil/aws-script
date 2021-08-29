@@ -1,5 +1,7 @@
 #!/bin/bash
 
+var7=$(ec2metadata --instance-id)
+
 main_obj=$(aws sqs receive-message --queue-url https://sqs.ap-south-1.amazonaws.com/968225076544/video-streaming --attribute-names All --message-attribute-names All --max-number-of-messages 1)
 
 echo -e $main_obj > version.json
@@ -34,9 +36,7 @@ aws sqs delete-message --queue-url https://sqs.ap-south-1.amazonaws.com/96822507
 
 aws autoscaling execute-policy --auto-scaling-group-name video-conversion-w-git --policy-name  reduce-an-instance
 
-var7=$(ec2metadata --instance-id)
 
-aws ec2 terminate-instances --instance-ids $var7
 
 
  
